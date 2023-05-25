@@ -8,8 +8,10 @@ public class Analysis {
         //CommonExpression f = parse(new StringBuilder("~(a&b|c)|d|e&~f"));
         //System.out.println(cnf("~a&b|~b&a"));
         //System.out.println(cnf("~(a&b|c)|d|e&~f"));
-        System.out.println(cnf("~(x|a&z)|~z&x"));
+        //System.out.println(cnf("~(x|a&z)|~z&x"));
         //System.out.println(cnf("~(a|b&c)|~c&a"));
+        //System.out.println(cnf("(~(a|~a)|b|~b)&g"));
+        System.out.println(cnf("a|b|~b|d|~(a&(y|x))"));
     }
 
     static Set<Character> operations = Set.of('|', '&', '~');
@@ -106,7 +108,7 @@ public class Analysis {
 
     public static StringBuilder cnf(String formula) {
         StringBuilder sb = new StringBuilder(formula);
-        Set<Integer> variables = new TreeSet<>();
+        Set<Integer> variables = new LinkedHashSet<>();
         Map<Integer, Integer> map = new HashMap<>();
 
         for (int i = 0; i < sb.length(); i++) {
@@ -128,7 +130,7 @@ public class Analysis {
         CommonExpression afterAnalysis = parse(sb);
         boolean[] args = new boolean[30];
         List<StringBuilder> result = new ArrayList<>();
-        String[] term = new String[0];
+        String[] term;
         int countOfVariables = variables.size();
 
         for (int i = 0; i < Math.pow(2, countOfVariables); i++) {
@@ -165,7 +167,7 @@ public class Analysis {
             cnf.append(result.get(result.size() - 1));
             cnf.append(')');
         } else {
-            cnf.append("Для заданной функции не существует КНФ (она является тождественной единицей)");
+            cnf.append("Для заданной функции не существует КНФ (функция является тождественной единицей)");
         }
 
         return cnf;

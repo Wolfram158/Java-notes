@@ -9,6 +9,7 @@ public class Analysis {
         double[] arg = {0, 1, 2, 3};
         System.out.println(f);
         System.out.println(f.evaluate(arg));*/
+        args[0] = args[0].replaceAll("\\s+", "");
         String[] start = args[0].split("\\|");
         Map<Integer, Set<Integer>> undefined = new HashMap<>();
         Pattern pattern = Pattern.compile("\\$\\d+");

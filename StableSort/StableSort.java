@@ -21,7 +21,7 @@ public class StableSort {
         state = new TreeMap<>();
     }
 
-    public void interpret(String command) {
+    public void interpret(final String command) {
         final String[] words = command.trim().split("\\s+");
         if (addMinusSeparated.matcher(command).matches()) {
             final int index = -Integer.parseInt(words[2]);
